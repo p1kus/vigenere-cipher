@@ -1,5 +1,6 @@
 "use strict";
 const plainText = "Hello";
+//LOOK OUT FOR SPACES, FIX THAT
 let keyword = "key";
 const alphabet = [
     "A",
@@ -38,25 +39,44 @@ const matchLength = (plainString, keyString) => {
 const splitter = (string) => {
     string = string.toLocaleUpperCase();
     let splitText = string.split("");
-    matchChars(splitText);
     return splitText;
 };
-const matchChars = (stringArray) => {
+const matchCharsToNum = (stringArray) => {
+    let result = [];
     stringArray.forEach((char) => {
         let match;
         match = alphabet.indexOf(char);
-        console.log(match);
+        result.push(match);
     });
+    return result;
 };
-const cipher = (plainText, keyword) => {
-    const cipherText = [1, 2];
+const cipher = (num, keyNum) => {
+    let cipherNumRepresentation = (num + keyNum + 26) % 26;
+    return cipherNumRepresentation;
+};
+const numToChar = (numArr) => {
+    let cipheredString = "";
+    numArr.forEach((item) => {
+        cipheredString += alphabet[item];
+    });
+    return cipheredString;
+};
+const prepareStrings = (plainText, keyword) => {
     keyword = matchLength(plainText, keyword);
     let splitPlain = splitter(plainText);
+    let plainNumRepresentation = matchCharsToNum(splitPlain);
     let splitKey = splitter(keyword);
-    console.log(splitPlain);
-    console.log(splitKey);
+    let keyNumRepresentation = matchCharsToNum(splitKey);
+    let cipherText = plainNumRepresentation.map((num, index) => {
+        const keyNum = keyNumRepresentation[index];
+        cipherText = numToChar(cipher(num, keyNum));
+        // fun to know about the index trick
+        // let cipherNumArr = cipher(num, keyNum);
+    });
+    numToChar(cipherText);
+    //   cipherText = numToChar(cipherText);
     return cipherText;
 };
-cipher(plainText, keyword);
+console.log(prepareStrings(plainText, keyword));
 // const splitText = plainText.split("");
 // const cipher = (cipher, keyword) => {};
