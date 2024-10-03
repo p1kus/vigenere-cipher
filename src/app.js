@@ -54,7 +54,11 @@ const cipher = (num, keyNum) => {
     let cipherNumRepresentation = (num + keyNum + 26) % 26;
     return cipherNumRepresentation;
 };
-const numToChar = (numArr) => {
+const decipher = (num, keyNum) => {
+    let decipherNumRepresentation = (num - keyNum + 26) % 26;
+    return decipherNumRepresentation;
+};
+const numToString = (numArr) => {
     let cipheredString = "";
     numArr.forEach((item) => {
         cipheredString += alphabet[item];
@@ -67,16 +71,26 @@ const prepareStrings = (plainText, keyword) => {
     let plainNumRepresentation = matchCharsToNum(splitPlain);
     let splitKey = splitter(keyword);
     let keyNumRepresentation = matchCharsToNum(splitKey);
-    let cipherText = plainNumRepresentation.map((num, index) => {
-        const keyNum = keyNumRepresentation[index];
-        cipherText = numToChar(cipher(num, keyNum));
-        // fun to know about the index trick
-        // let cipherNumArr = cipher(num, keyNum);
-    });
-    numToChar(cipherText);
-    //   cipherText = numToChar(cipherText);
-    return cipherText;
+    return { plainNumRepresentation, keyNumRepresentation };
 };
-console.log(prepareStrings(plainText, keyword));
-// const splitText = plainText.split("");
-// const cipher = (cipher, keyword) => {};
+let { plainNumRepresentation, keyNumRepresentation } = prepareStrings(plainText, keyword);
+const cipherText = () => {
+    let cipherArr = plainNumRepresentation.map((num, index) => {
+        const keyNum = keyNumRepresentation[index];
+        let cipherCombinedArr = cipher(num, keyNum);
+        return cipherCombinedArr;
+    });
+    let cipheredString = numToString(cipherArr);
+    return cipheredString;
+};
+const decipherText = () => {
+    let cipheredText = cipherText();
+    let cipheredNumRepresentation = matchCharsToNum(splitter(cipheredText));
+    let decipherArr = cipheredNumRepresentation.map((num, index) => {
+        const keyNum = keyNumRepresentation[index];
+        let decipherCombinedArr = decipher(num, keyNum);
+        return decipherCombinedArr;
+    });
+    let decipheredString = numToString(decipherArr);
+    return decipheredString;
+};

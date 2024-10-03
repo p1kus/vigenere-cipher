@@ -59,8 +59,12 @@ const cipher = (num: number, keyNum: number) => {
   let cipherNumRepresentation: number = (num + keyNum + 26) % 26;
   return cipherNumRepresentation;
 };
+const decipher = (num: number, keyNum: number) => {
+  let decipherNumRepresentation: number = (num - keyNum + 26) % 26;
+  return decipherNumRepresentation;
+};
 
-const numToChar = (numArr: number[]): string => {
+const numToString = (numArr: number[]): string => {
   let cipheredString: string = "";
   numArr.forEach((item) => {
     cipheredString += alphabet[item];
@@ -68,24 +72,44 @@ const numToChar = (numArr: number[]): string => {
   return cipheredString;
 };
 
-const prepareStrings = (plainText: string, keyword: string): number[] => {
+const prepareStrings = (
+  plainText: string,
+  keyword: string
+): {
+  plainNumRepresentation: number[];
+  keyNumRepresentation: number[];
+} => {
   keyword = matchLength(plainText, keyword);
   let splitPlain = splitter(plainText);
   let plainNumRepresentation = matchCharsToNum(splitPlain);
   let splitKey = splitter(keyword);
   let keyNumRepresentation = matchCharsToNum(splitKey);
-  let cipherText: number[] = plainNumRepresentation.map((num, index) => {
-    const keyNum = keyNumRepresentation[index];
-    cipherText = numToChar(cipher(num, keyNum));
-    // fun to know about the index trick
-    // let cipherNumArr = cipher(num, keyNum);
-  });
-  numToChar(cipherText);
-  //   cipherText = numToChar(cipherText);
-  return cipherText;
+  return { plainNumRepresentation, keyNumRepresentation };
 };
 
-console.log(prepareStrings(plainText, keyword));
-// const splitText = plainText.split("");
+let { plainNumRepresentation, keyNumRepresentation } = prepareStrings(
+  plainText,
+  keyword
+);
 
-// const cipher = (cipher, keyword) => {};
+const cipherText = () => {
+  let cipherArr: number[] = plainNumRepresentation.map((num, index) => {
+    const keyNum = keyNumRepresentation[index];
+    let cipherCombinedArr = cipher(num, keyNum);
+    return cipherCombinedArr;
+  });
+  let cipheredString = numToString(cipherArr);
+  return cipheredString;
+};
+
+const decipherText = () => {
+  let cipheredText = cipherText();
+  let cipheredNumRepresentation = matchCharsToNum(splitter(cipheredText));
+  let decipherArr = cipheredNumRepresentation.map((num, index) => {
+    const keyNum = keyNumRepresentation[index];
+    let decipherCombinedArr = decipher(num, keyNum);
+    return decipherCombinedArr;
+  });
+  let decipheredString = numToString(decipherArr);
+  return decipheredString;
+};

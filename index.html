@@ -7,23 +7,46 @@
     <title>vigenere-cipher</title>
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <header>
-      <nav>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
+      <h1>Vigenere Cipher</h1>
     </header>
     <main>
-      <h1>Hello World</h1>
+      <form>
+        <div class="mb-3">
+          <label for="cipherInput" class="form-label">Text to cipher</label>
+          <input type="text" class="form-control" id="cipherInput" />
+          <div id="cipherHelp" class="form-text">Enter the text to cipher</div>
+        </div>
+        <div class="mb-5">
+          <label for="keywordInput" class="form-label">Keyword</label>
+          <input type="text" class="form-control" id="keywordInput" />
+          <div id="keywordHelp" class="form-text">
+            Enter the keyword to cipher with
+          </div>
+        </div>
+        <div class="mb-3 d-flex justify-content-center">
+          <button type="submit" class="btn btn-outline-secondary">
+            Submit
+          </button>
+        </div>
+      </form>
     </main>
     <footer>
       <p>&copy; vigenere-cipher</p>
     </footer>
-    <script src="src/app.js" type="module"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      <script
+      src="src/app.js"
+      type="module"
+    ></script>
   </body>
 </html>

@@ -1,5 +1,4 @@
-
-@import url('variables.css');
+@import url("variables.css");
 
 /* //// GLOBAL | site-wide */
 
@@ -7,8 +6,20 @@
 
 /* //// MAIN  */
 
+header {
+  height: 150px;
+  background-color: #e9e5e5;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 80px;
+  height: 100%;
+}
+
 /* //// FOOTER  */
 
 /* //// MEDIA QUERIES  */
-
-

@@ -2,10 +2,15 @@
 
 Vigenere cipher implementation in TypeScript
 
+[https://brilliant.org/wiki/vigenere-cipher/]
+
+[https://en.wikipedia.org/wiki/Vigenère_cipher]
+
 # Technologies Used
 
 - HTML5
 - CSS
+- JavaScript
 - TypeScript
 
 # Getting Started
