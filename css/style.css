@@ -15,7 +15,7 @@ body {
 header {
   height: 150px;
   background-color: #e9e5e5;
-  background-image: url(../assets/vigenere-square.svg);
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/9a/Vigenère_square_shading.svg);
   background-position: center;
 }
 
