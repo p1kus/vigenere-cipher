@@ -1,96 +1,55 @@
-"use strict";
-const plainText = "Hello";
-//LOOK OUT FOR SPACES, FIX THAT
-let keyword = "key";
-const alphabet = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-];
-const matchLength = (plainString, keyString) => {
-    const repeatCount = Math.ceil(plainString.length);
-    keyString = keyString.repeat(repeatCount);
-    keyString = keyString.slice(0, plainString.length);
-    return keyString;
+import { cipherText, processData } from "./cipher.js";
+const domElements = () => {
+    const cipherInputElement = document.querySelector("#cipherInput");
+    if (!cipherInputElement) {
+        console.error("Cipher Input Element does not exist in document");
+    }
+    const keywordInputElement = document.querySelector("#keywordInput");
+    if (!keywordInputElement) {
+        console.error("Keyword input element does not exist in document");
+    }
+    const cipherButtonElement = document.querySelector("#cipherButton");
+    if (!cipherButtonElement) {
+        console.error("Cipher button element does not exist in document");
+    }
+    const cipherResultHeaderElement = document.querySelector(".result-header");
+    if (!cipherResultHeaderElement) {
+        console.error("Cipher result header element does not exist in document");
+    }
+    const cipherResultTextElement = document.querySelector(".result-text");
+    if (!cipherResultTextElement) {
+        console.error("Cipher result header element does not exist in document");
+    }
+    return {
+        cipherInputElement,
+        keywordInputElement,
+        cipherButtonElement,
+        cipherResultHeaderElement,
+        cipherResultTextElement,
+    };
 };
-const splitter = (string) => {
-    string = string.toLocaleUpperCase();
-    let splitText = string.split("");
-    return splitText;
-};
-const matchCharsToNum = (stringArray) => {
-    let result = [];
-    stringArray.forEach((char) => {
-        let match;
-        match = alphabet.indexOf(char);
-        result.push(match);
+const { cipherInputElement, keywordInputElement, cipherButtonElement, cipherResultHeaderElement, cipherResultTextElement, } = domElements();
+console.log(cipherInputElement);
+const domEvents = () => {
+    let plaintext = "";
+    let keyword = "";
+    cipherInputElement.addEventListener("keyup", () => {
+        plaintext = cipherInputElement.value;
     });
-    return result;
-};
-const cipher = (num, keyNum) => {
-    let cipherNumRepresentation = (num + keyNum + 26) % 26;
-    return cipherNumRepresentation;
-};
-const decipher = (num, keyNum) => {
-    let decipherNumRepresentation = (num - keyNum + 26) % 26;
-    return decipherNumRepresentation;
-};
-const numToString = (numArr) => {
-    let cipheredString = "";
-    numArr.forEach((item) => {
-        cipheredString += alphabet[item];
+    keywordInputElement.addEventListener("keyup", () => {
+        keyword = keywordInputElement.value;
     });
-    return cipheredString;
-};
-const prepareStrings = (plainText, keyword) => {
-    keyword = matchLength(plainText, keyword);
-    let splitPlain = splitter(plainText);
-    let plainNumRepresentation = matchCharsToNum(splitPlain);
-    let splitKey = splitter(keyword);
-    let keyNumRepresentation = matchCharsToNum(splitKey);
-    return { plainNumRepresentation, keyNumRepresentation };
-};
-let { plainNumRepresentation, keyNumRepresentation } = prepareStrings(plainText, keyword);
-const cipherText = () => {
-    let cipherArr = plainNumRepresentation.map((num, index) => {
-        const keyNum = keyNumRepresentation[index];
-        let cipherCombinedArr = cipher(num, keyNum);
-        return cipherCombinedArr;
+    cipherButtonElement.addEventListener("click", (e) => {
+        e.preventDefault();
+        processData(plaintext, keyword);
+        const result = cipherText(plaintext, keyword);
+        cipherResultHeaderElement.classList.remove("hidden");
+        cipherResultTextElement.classList.remove("hidden");
+        cipherResultTextElement.textContent = result;
     });
-    let cipheredString = numToString(cipherArr);
-    return cipheredString;
 };
-const decipherText = () => {
-    let cipheredText = cipherText();
-    let cipheredNumRepresentation = matchCharsToNum(splitter(cipheredText));
-    let decipherArr = cipheredNumRepresentation.map((num, index) => {
-        const keyNum = keyNumRepresentation[index];
-        let decipherCombinedArr = decipher(num, keyNum);
-        return decipherCombinedArr;
-    });
-    let decipheredString = numToString(decipherArr);
-    return decipheredString;
+const main = () => {
+    domElements();
+    domEvents();
 };
+main();
