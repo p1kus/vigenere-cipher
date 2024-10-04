@@ -15,8 +15,3 @@ Vigenere cipher implementation in TypeScript
 - Bootstrap
 - JavaScript
 - TypeScript
-
-# Getting Started
-
-1. Clone the repo
-2. Run locally on your machine
