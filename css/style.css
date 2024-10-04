@@ -6,9 +6,17 @@
 
 /* //// MAIN  */
 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 header {
   height: 150px;
   background-color: #e9e5e5;
+  background-image: url(../assets/vigenere-square.svg);
+  background-position: center;
 }
 
 main {
@@ -16,10 +24,19 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 80px;
-  height: 100%;
+  flex-grow: 0.5;
+}
+
+.hidden {
+  opacity: 0;
 }
 
 /* //// FOOTER  */
+
+footer {
+  bottom: 0;
+  text-align: center;
+  margin-top: auto;
+}
 
 /* //// MEDIA QUERIES  */
