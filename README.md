@@ -12,6 +12,7 @@ Vigenere cipher implementation in TypeScript
 
 - HTML5
 - CSS
+- Bootstrap
 - JavaScript
 - TypeScript
 
